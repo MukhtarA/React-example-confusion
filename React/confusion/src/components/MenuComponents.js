@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Card, CardImg, CardImgOverlay, CardBody, CardText, CardTitle } from 'reactstrap';
+import DishDetail from './DishdetailComponent';
 
 class Menu extends Component {
 
@@ -9,6 +10,13 @@ class Menu extends Component {
         this.state = {
             selectedDish: null
         }
+
+        console.log('Menu Component constructor is invoked');
+    }
+
+    componentDidMount(){
+        console.log('Menu Component componentDidMount is invoked');
+
     }
 
     onDishSelected(dish){
@@ -18,13 +26,7 @@ class Menu extends Component {
     renderDish(dish){
         if(dish != null){
             return(
-                <Card>
-                    <CardImg width="100%" src={dish.image} alt={dish.name} />
-                    <CardBody>
-                        <CardTitle>{dish.name}</CardTitle>
-                        <CardText>{dish.description}</CardText>
-                    </CardBody>
-                </Card>
+                <DishDetail dish={dish}/>
             );
         }else{
             return(
@@ -41,12 +43,14 @@ class Menu extends Component {
                     <Card onClick={() => this.onDishSelected(dish)}>
                         <CardImg width="100%" src={dish.image} alt={dish.name} />
                         <CardImgOverlay>
-                            <CardTitle>{dish.name}</CardTitle>
+                            <CardTitle tag="h5">{dish.name}</CardTitle>
                         </CardImgOverlay>
                     </Card>
                 </div>
             );
         });
+        console.log('Menu Component render is invoked');
+
         return (
             <div className="container">
                 <div className="row">
@@ -55,6 +59,8 @@ class Menu extends Component {
                 <div className="row">
                     {this.renderDish(this.state.selectedDish)}
                 </div>
+          
+            
             </div>
         );
     }
